@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>tr_load_table</name>
+    <name>tr_create_clients</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -530,17 +530,17 @@
     </hop>
     <hop>
       <from>Stream lookup</from>
-      <to>ExistClientId</to>
+      <to>Need2CreateClient</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>ExistClientId</from>
+      <from>Need2CreateClient</from>
+      <to>Unique rows (HashSet)</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Unique rows (HashSet)</from>
       <to>Execute SQL script</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Execute SQL script</from>
-      <to>Dummy (do nothing)</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -630,31 +630,6 @@ FROM "public".api_v1_client
     </GUI>
   </step>
   <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1136</xloc>
-      <yloc>144</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Execute SQL script</name>
     <type>ExecSQL</type>
     <description/>
@@ -670,8 +645,7 @@ FROM "public".api_v1_client
     <single_statement>N</single_statement>
     <replace_variables>N</replace_variables>
     <quoteString>N</quoteString>
-    <sql>INSERT INTO public.api_v1_order(check_value,circulation, client_id, "comment",completed, control_passed, create_dt, deadline_dt, done_count, manager_id, reminder, "name", is_template, order_type, material, is_archived, priority)
-VALUES(' ', ?, ?, '?', false, false, NOW(), '?', 0, 1, 0, '?', false, ' ', '?', false, 0);</sql>
+    <sql>INSERT INTO "public".api_v1_client("name") VALUES ('?');</sql>
     <set_params>N</set_params>
     <insert_field/>
     <update_field/>
@@ -679,22 +653,7 @@ VALUES(' ', ?, ?, '?', false, false, NOW(), '?', 0, 1, 0, '?', false, ' ', '?', 
     <read_field/>
     <arguments>
       <argument>
-        <name>circulation</name>
-      </argument>
-      <argument>
-        <name>client_id</name>
-      </argument>
-      <argument>
-        <name>id</name>
-      </argument>
-      <argument>
-        <name>deadline_dt</name>
-      </argument>
-      <argument>
-        <name>name</name>
-      </argument>
-      <argument>
-        <name>material</name>
+        <name>client_name</name>
       </argument>
     </arguments>
     <attributes/>
@@ -706,42 +665,7 @@ VALUES(' ', ?, ?, '?', false, false, NOW(), '?', 0, 1, 0, '?', false, ' ', '?', 
       </output>
     </remotesteps>
     <GUI>
-      <xloc>976</xloc>
-      <yloc>144</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>ExistClientId</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Execute SQL script</send_true_to>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>client_id</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue/>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>784</xloc>
+      <xloc>1120</xloc>
       <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1000,6 +924,41 @@ VALUES(' ', ?, ?, '?', false, false, NOW(), '?', 0, 1, 0, '?', false, ' ', '?', 
     <GUI>
       <xloc>352</xloc>
       <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Need2CreateClient</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Unique rows (HashSet)</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>client_id</leftvalue>
+        <function>IS NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>784</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1324,6 +1283,39 @@ WHERE "state" in ('task_wait')
     <GUI>
       <xloc>80</xloc>
       <yloc>48</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Unique rows (HashSet)</name>
+    <type>UniqueRowsByHashSet</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <store_values>N</store_values>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>client_name</name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>960</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
