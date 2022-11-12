@@ -12,3 +12,5 @@ Analytics for the summary ML / ETL process
 https://hop.apache.org/manual/latest/hop-gui/hop-web.html
 https://hub.docker.com/r/apache/hop-web
 https://hop.apache.org/manual/latest/getting-started/hop-download-install.html#_prerequisites
+
+# Pentaho Kettle
