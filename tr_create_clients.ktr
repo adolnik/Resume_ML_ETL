@@ -19,6 +19,16 @@
         <default_value/>
         <description/>
       </parameter>
+      <parameter>
+        <name>default_path</name>
+        <default_value/>
+        <description/>
+      </parameter>
+      <parameter>
+        <name>process_row_id</name>
+        <default_value/>
+        <description/>
+      </parameter>
     </parameters>
     <log>
       <trans-log-table>
@@ -499,18 +509,8 @@
   </connection>
   <order>
     <hop>
-      <from>Table input</from>
-      <to>Filter rows (task_wait)</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Modified JavaScript value</from>
       <to>Microsoft Excel input</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filter rows (task_wait)</from>
-      <to>Modified JavaScript value</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -541,6 +541,11 @@
     <hop>
       <from>Unique rows (HashSet)</from>
       <to>Execute SQL script</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Table input</from>
+      <to>Modified JavaScript value</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -667,71 +672,6 @@ FROM "public".api_v1_client
     <GUI>
       <xloc>1120</xloc>
       <yloc>144</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filter rows (task_wait)</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Modified JavaScript value</send_true_to>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>state</leftvalue>
-            <function>=</function>
-            <rightvalue/>
-            <value>
-              <name>constant</name>
-              <type>String</type>
-              <text>task_wait</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask/>
-            </value>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>rn</leftvalue>
-            <function>=</function>
-            <rightvalue/>
-            <value>
-              <name>constant</name>
-              <type>Integer</type>
-              <text>1</text>
-              <length>-1</length>
-              <precision>0</precision>
-              <isnull>N</isnull>
-              <mask>####0;-####0</mask>
-            </value>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>208</xloc>
-      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -899,7 +839,7 @@ FROM "public".api_v1_client
       <jsScript>
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var filename = "C:\\Users\\ADolnik\\Develop\\dolnik-corp\\TMT\\mmpo_crm\\media\\" + file
+        <jsScript_script>var filename = getEnvironmentVar('default_path') + file
 </jsScript_script>
       </jsScript>
     </jsScripts>
@@ -1076,14 +1016,14 @@ FROM "public".api_v1_client
 , date_finished
 , progress_log
 , user_id
-, row_number() over () as rn
+, row_number() over (order by id) as rn
 FROM "public".api_v1_task
-WHERE "state" in ('task_wait')
+WHERE id = ${process_row_id}
 </sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
+    <variables_active>Y</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
     <cached_row_meta_active>N</cached_row_meta_active>
     <row-meta>
