@@ -24,6 +24,16 @@
         <default_value>-1</default_value>
         <description/>
       </parameter>
+      <parameter>
+        <name>DB_HOST</name>
+        <default_value/>
+        <description/>
+      </parameter>
+      <parameter>
+        <name>DB_NAME</name>
+        <default_value/>
+        <description/>
+      </parameter>
     </parameters>
     <log>
       <trans-log-table>
@@ -453,10 +463,10 @@
   </notepads>
   <connection>
     <name>container</name>
-    <server>localhost</server>
+    <server>${DB_HOST}</server>
     <type>POSTGRESQL</type>
     <access>Native</access>
-    <database>mmpo_crm</database>
+    <database>${DB_NAME}</database>
     <port>5432</port>
     <username>${DB_USER}</username>
     <password>${DB_PWD}</password>
