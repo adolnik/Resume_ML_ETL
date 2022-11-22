@@ -40,7 +40,7 @@ with DAG(dag_id=DAG_NAME,
     # [START check default_db_host]
     run_default_db_host = BashOperator(
         task_id='check_default_db_host',
-        bash_command="echo '{}'".format(default_db_host),
+        bash_command="echo 'default_db_host={}'".format(default_db_host),
     )
     # [END check default_db_host]
 
@@ -51,10 +51,10 @@ with DAG(dag_id=DAG_NAME,
         directory='/home/pentaho_scripts',
         job='main',
         params={
-        'DB_HOST' : "'{}'".format(default_db_host), 
-        'DB_NAME' : "'{}'".format(default_db_name), 
-        'DB_PWD'  : "'{}'".format(default_db_pwd), 
-        'DB_USER' : "'{}'".format(default_db_user), 
-        'default_path': "'{}'".format(default_db_pmplan_media_path)})
+        'DB_HOST' : "{}".format(default_db_host), 
+        'DB_NAME' : "{}".format(default_db_name), 
+        'DB_PWD'  : "{}".format(default_db_pwd), 
+        'DB_USER' : "{}".format(default_db_user), 
+        'default_path': "{}".format(default_db_pmplan_media_path)})
         
     run_default_db_host >> job1
