@@ -48,13 +48,13 @@ with DAG(dag_id=DAG_NAME,
         dag=dag,
         task_id='job1',
         xcom_push=True,
-        directory='/home/pentaho_scripts',
+        directory='/opt/airflow/pentaho_scripts',
         job='main',
         params={
-        'DB_HOST' : "{}".format(default_db_host), 
-        'DB_NAME' : "{}".format(default_db_name), 
-        'DB_PWD'  : "{}".format(default_db_pwd), 
-        'DB_USER' : "{}".format(default_db_user), 
-        'default_path': "{}".format(default_db_pmplan_media_path)})
+        'DB_HOST' : Variable.get("DEFAULT_DB_HOST"), 
+        'DB_NAME' : Variable.get("DEFAULT_DB_NAME"), 
+        'DB_PWD'  : Variable.get("DEFAULT_DB_PWD"), 
+        'DB_USER' : Variable.get("DEFAULT_DB_USER"), 
+        'default_path': '{}'.format(default_db_pmplan_media_path)})
         
     run_default_db_host >> job1
