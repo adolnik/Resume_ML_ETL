@@ -32,6 +32,11 @@
       <description/>
     </parameter>
     <parameter>
+      <name>LOG_DIR</name>
+      <default_value>/opt/airflow/logs</default_value>
+      <description/>
+    </parameter>
+    <parameter>
       <name>default_path</name>
       <default_value>media_PATH</default_value>
       <description/>
@@ -361,14 +366,14 @@
       <clear_rows>N</clear_rows>
       <clear_files>N</clear_files>
       <set_logfile>Y</set_logfile>
-      <logfile>${default_path}logs\\logs</logfile>
+      <logfile>${LOG_DIR}\\MMPO_TASKS\\${DB_NAME}\\create_clients</logfile>
       <logext/>
       <add_date>Y</add_date>
       <add_time>Y</add_time>
       <loglevel>Error</loglevel>
       <cluster>N</cluster>
       <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
+      <set_append_logfile>Y</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>Y</create_parent_folder>
@@ -429,14 +434,14 @@
       <clear_rows>N</clear_rows>
       <clear_files>N</clear_files>
       <set_logfile>Y</set_logfile>
-      <logfile>${default_path}logs\\logs</logfile>
+      <logfile>${LOG_DIR}\\MMPO_TASKS\\${DB_NAME}\\load_data</logfile>
       <logext/>
       <add_date>Y</add_date>
       <add_time>Y</add_time>
       <loglevel>Error</loglevel>
       <cluster>N</cluster>
       <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
+      <set_append_logfile>Y</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>Y</create_parent_folder>
@@ -559,18 +564,18 @@
       <exec_per_row>N</exec_per_row>
       <clear_rows>N</clear_rows>
       <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
+      <set_logfile>Y</set_logfile>
+      <logfile>${LOG_DIR}\\MMPO_TASKS\\${DB_NAME}\\get_id2process</logfile>
       <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
+      <add_date>Y</add_date>
+      <add_time>Y</add_time>
+      <loglevel>Error</loglevel>
       <cluster>N</cluster>
       <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
+      <set_append_logfile>Y</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
+      <create_parent_folder>Y</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
       <run_configuration>Pentaho local</run_configuration>
       <parameters>

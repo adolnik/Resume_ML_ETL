@@ -10,6 +10,9 @@ from airflow.models import Variable
 from airflow.operators.bash import BashOperator
 from airflow.operators.empty import EmptyOperator
 from airflow_pentaho.operators.kettle import KitchenOperator
+
+import airflow.macros
+
 #from airflow_pentaho.operators.kettle import PanOperator
 #from airflow_pentaho.operators.carte import CarteJobOperator
 #from airflow_pentaho.operators.carte import CarteTransOperator
@@ -27,10 +30,6 @@ DEFAULT_ARGS = {
 }
 
 default_db_host = Variable.get("DEFAULT_DB_HOST")
-default_db_name = Variable.get("DEFAULT_DB_NAME")
-default_db_pwd = Variable.get("DEFAULT_DB_PWD")
-default_db_user = Variable.get("DEFAULT_DB_USER")
-default_db_pmplan_media_path = Variable.get("DEFAULT_PMPLAN_MEDIA_PATH")
 
 with DAG(dag_id=DAG_NAME,
          default_args=DEFAULT_ARGS,
@@ -40,7 +39,8 @@ with DAG(dag_id=DAG_NAME,
     # [START check default_db_host]
     run_default_db_host = BashOperator(
         task_id='check_default_db_host',
-        bash_command="echo 'default_db_host={}'".format(default_db_host),
+        bash_command="echo 'default_db_host={{ params.def_db_host}}' '{{ ds }}'",
+        params={"def_db_host":default_db_host}
     )
     # [END check default_db_host]
 
@@ -52,7 +52,14 @@ with DAG(dag_id=DAG_NAME,
         #queue="pdi",
         directory='/opt/airflow/pentaho_scripts',
         job='main_test',
-        file='/opt/airflow/pentaho_scripts/main_test.kjb',
-        params={"date": "{{ ds }}"})
+        xcom_push=True,
+        file='/opt/airflow/pentaho_scripts/main.kjb',
+        params={"date": "'{{ds}}'",
+            'empty_param':'', 
+            'DB_HOST':default_db_host, 
+            'DB_NAME' : Variable.get("DEFAULT_DB_NAME"),
+            'DB_PWD' :  Variable.get("DEFAULT_DB_PWD"),
+            'DB_USER' :  Variable.get("DEFAULT_DB_USER"),
+            'default_path' : Variable.get("DEFAULT_PMPLAN_MEDIA_PATH")})
         
     run_default_db_host >> job1
