@@ -369,7 +369,7 @@
       <logfile>${LOG_DIR}\\MMPO_TASKS\\${DB_NAME}\\create_clients</logfile>
       <logext/>
       <add_date>Y</add_date>
-      <add_time>Y</add_time>
+      <add_time>N</add_time>
       <loglevel>Error</loglevel>
       <cluster>N</cluster>
       <slave_server_name/>
@@ -437,7 +437,7 @@
       <logfile>${LOG_DIR}\\MMPO_TASKS\\${DB_NAME}\\load_data</logfile>
       <logext/>
       <add_date>Y</add_date>
-      <add_time>Y</add_time>
+      <add_time>N</add_time>
       <loglevel>Error</loglevel>
       <cluster>N</cluster>
       <slave_server_name/>
@@ -568,7 +568,7 @@
       <logfile>${LOG_DIR}\\MMPO_TASKS\\${DB_NAME}\\get_id2process</logfile>
       <logext/>
       <add_date>Y</add_date>
-      <add_time>Y</add_time>
+      <add_time>N</add_time>
       <loglevel>Error</loglevel>
       <cluster>N</cluster>
       <slave_server_name/>

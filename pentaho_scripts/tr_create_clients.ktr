@@ -712,7 +712,7 @@ FROM "public".api_v1_client
     <accept_field>filename</accept_field>
     <accept_stepname>Modified JavaScript value</accept_stepname>
     <file>
-      <name>C:\Users\ADolnik\Develop\dolnik-corp\TMT\mmpo_crm\media\tasks\new_load_template.xls</name>
+      <name>C:\Users\ADolnik\Develop\dolnik-corp\TMT\mmpo_crm\media\tasks\тест_срм.xls</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -795,6 +795,11 @@ FROM "public".api_v1_client
     <sheets>
       <sheet>
         <name>Лист1</name>
+        <startrow>0</startrow>
+        <startcol>0</startcol>
+      </sheet>
+      <sheet>
+        <name>TDSheet</name>
         <startrow>0</startrow>
         <startcol>0</startcol>
       </sheet>

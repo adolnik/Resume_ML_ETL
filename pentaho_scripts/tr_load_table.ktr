@@ -10,6 +10,16 @@
     <directory>/</directory>
     <parameters>
       <parameter>
+        <name>DB_HOST</name>
+        <default_value/>
+        <description/>
+      </parameter>
+      <parameter>
+        <name>DB_NAME</name>
+        <default_value/>
+        <description/>
+      </parameter>
+      <parameter>
         <name>DB_PWD</name>
         <default_value/>
         <description/>
@@ -22,16 +32,6 @@
       <parameter>
         <name>process_row_id</name>
         <default_value>-1</default_value>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>DB_HOST</name>
-        <default_value/>
-        <description/>
-      </parameter>
-      <parameter>
-        <name>DB_NAME</name>
-        <default_value/>
         <description/>
       </parameter>
     </parameters>
@@ -866,6 +866,11 @@ VALUES('?', ?, ?, '', false, NULL, NOW(), '?', 0, 1, 0, '?', false, ' ', '?', fa
     <sheets>
       <sheet>
         <name>Лист1</name>
+        <startrow>0</startrow>
+        <startcol>0</startcol>
+      </sheet>
+      <sheet>
+        <name>TDSheet</name>
         <startrow>0</startrow>
         <startcol>0</startcol>
       </sheet>
