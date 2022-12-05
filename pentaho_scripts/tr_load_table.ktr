@@ -892,7 +892,7 @@ VALUES('?', ?, ?, '', false, NULL, NOW(), '?', 0, 1, 0, '?', false, ' ', '?', fa
     <rootUriNameFieldName/>
     <extensionFieldName/>
     <sizeFieldName/>
-    <spreadsheet_type>JXL</spreadsheet_type>
+    <spreadsheet_type>POI</spreadsheet_type>
     <password>Encrypted </password>
     <attributes/>
     <cluster_schema/>
