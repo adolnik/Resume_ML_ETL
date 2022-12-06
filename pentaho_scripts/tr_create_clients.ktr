@@ -520,11 +520,11 @@
   <order>
     <hop>
       <from>Modified JavaScript value</from>
-      <to>MicrosoftExcelInput</to>
+      <to>Microsoft Excel input</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>MicrosoftExcelInput</from>
+      <from>Microsoft Excel input</from>
       <to>Select values</to>
       <enabled>Y</enabled>
     </hop>
@@ -686,7 +686,7 @@ FROM "public".api_v1_client
     </GUI>
   </step>
   <step>
-    <name>MicrosoftExcelInput</name>
+    <name>Microsoft Excel input</name>
     <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -821,7 +821,7 @@ FROM "public".api_v1_client
     <rootUriNameFieldName/>
     <extensionFieldName/>
     <sizeFieldName/>
-    <spreadsheet_type>POI</spreadsheet_type>
+    <spreadsheet_type>JXL</spreadsheet_type>
     <password>Encrypted </password>
     <attributes/>
     <cluster_schema/>
@@ -854,7 +854,7 @@ FROM "public".api_v1_client
       <jsScript>
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var filename = getEnvironmentVar('default_path') + file
+        <jsScript_script>var filename = getEnvironmentVar('default_path') + '/' + file
 </jsScript_script>
       </jsScript>
     </jsScripts>

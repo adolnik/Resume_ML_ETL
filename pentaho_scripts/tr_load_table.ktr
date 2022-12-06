@@ -925,7 +925,7 @@ VALUES('?', ?, ?, '', false, NULL, NOW(), '?', 0, 1, 0, '?', false, ' ', '?', fa
       <jsScript>
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var filename = getEnvironmentVar('default_path') + file
+        <jsScript_script>var filename = getEnvironmentVar('default_path') + '/' + file
 </jsScript_script>
       </jsScript>
     </jsScripts>

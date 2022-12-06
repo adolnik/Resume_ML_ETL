@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>main_deb</name>
+  <name>main</name>
   <description/>
   <extended_description/>
-  <job_version/>
-  <job_status>0</job_status>
+  <job_version>1.0</job_version>
+  <job_status>2</job_status>
   <directory>/</directory>
   <created_user>-</created_user>
   <created_date>2022/11/12 21:25:48.140</created_date>
